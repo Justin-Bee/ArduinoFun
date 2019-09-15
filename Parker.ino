@@ -1,12 +1,9 @@
 /*********************************************************************
  This is an example for our nRF52 based Bluefruit LE modules
-
  Pick one up today in the adafruit shop!
-
  Adafruit invests time and resources providing this open source code,
  please support Adafruit and open-source hardware by purchasing
  products from Adafruit!
-
  MIT license, check LICENSE for more information
  All text above, and the splash screen below must be included in
  any redistribution
@@ -31,9 +28,10 @@ uint8_t beaconUuid[16] =
 // UUID, Major, Minor, RSSI @ 1M
 BLEBeacon beacon(beaconUuid, 0x0000, 0x0000, -54);
 
-String name1 = "Justin";
-String wife = "Ashley";
-String son = "Parker";
+bool isBlue = false;
+bool isRed = false;
+
+
 
 void setup() 
 {
@@ -95,15 +93,25 @@ void loop()
   if (Serial.available()>0){
       int selection = Serial.parseInt();
       if (selection == 1){
-        //prints the variable set for name1
-        Serial.println(name1);
+        if(isBlue==false){
         //either toggles on or off the blue led
         digitalToggle(LED_BLUE);
+        isBlue=true;
+        }
       }else if (selection ==2){
-        Serial.println(wife);
+        if(isRed==false){
         digitalToggle(LED_RED);
+        isRed=true;
+        }
       }else if (selection ==3){
-        Serial.println(son);
+        if(isRed==true){
+          digitalToggle(LED_RED);
+          isRed=false;
+        }
+        if(isBlue==true){
+          digitalToggle(LED_BLUE);
+          isBlue=false;
+        }
       }
       
 
